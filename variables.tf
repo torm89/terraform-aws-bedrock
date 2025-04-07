@@ -60,128 +60,13 @@ variable "tags" {
 }
 
 # – Prompt Override Configuration –
-variable "prompt_override" {
-  description = "Whether to provide prompt override configuration."
-  type        = bool
-  default     = false
-}
-
-variable "prompt_type" {
-  description = "The step in the agent sequence that this prompt configuration applies to."
-  type        = string
+variable "prompt_override_configuration" {
+  description = "Prompt override configuration."
+  type        = any
   default     = null
-
-  validation {
-    condition     = var.prompt_type == "PRE_PROCESSING" || var.prompt_type == "ORCHESTRATION" || var.prompt_type == "POST_PROCESSING" || var.prompt_type == "KNOWLEDGE_BASE_RESPONSE_GENERATION" || var.prompt_type == null
-    error_message = "Not a valid prompt_type."
-  }
-}
-
-# must contain non-whitespace characters
-variable "base_prompt_template" {
-  description = "Defines the prompt template with which to replace the default prompt template."
-  type        = string
-  default     = null
-}
-
-variable "parser_mode" {
-  description = "Specifies whether to override the default parser Lambda function."
-  type        = string
-  default     = null
-
-  validation {
-    condition     = var.parser_mode == "DEFAULT" || var.parser_mode == "OVERRIDDEN" || var.parser_mode == null
-    error_message = "The parser_mode must be set to DEFAULT or OVERRIDDEN."
-  }
-}
-
-variable "prompt_creation_mode" {
-  description = "Specifies whether to override the default prompt template."
-  type        = string
-  default     = null
-
-  validation {
-    condition     = var.prompt_creation_mode == "DEFAULT" || var.prompt_creation_mode == "OVERRIDDEN" || var.prompt_creation_mode == null
-    error_message = "The prompt_creation_mode must be set to DEFAULT or OVERRIDDEN."
-  }
-}
-
-variable "prompt_state" {
-  description = "Specifies whether to allow the agent to carry out the step specified in the promptType."
-  type        = string
-  default     = null
-
-  validation {
-    condition     = var.prompt_state == "ENABLED" || var.prompt_state == "DISABLED" || var.prompt_state == null
-    error_message = "The prompt_state must be set to ENABLED or DISABLED."
-  }
-}
-
-variable "override_lambda_arn" {
-  description = "The ARN of the Lambda function to use when parsing the raw foundation model output in parts of the agent sequence."
-  type        = string
-  default     = null
-}
-
-# – Inference Configuration –
-
-variable "temperature" {
-  description = "The likelihood of the model selecting higher-probability options while generating a response."
-  type        = number
-  default     = 0
-
-  validation {
-    condition     = var.temperature >= 0 && var.temperature <= 1
-    error_message = "The temperature must be between 0 and 1."
-  }
-}
-
-variable "top_p" {
-  description = "Cumulative probability cutoff for token selection."
-  type        = number
-  default     = 0.50
-
-  validation {
-    condition     = var.top_p >= 0 && var.top_p <= 1.00
-    error_message = "The top_p must be between 0 and 1.00."
-  }
-}
-
-variable "top_k" {
-  description = "Sample from the k most likely next tokens."
-  type        = number
-  default     = 50
-
-  validation {
-    condition     = var.top_k >= 0 && var.top_k <= 500
-    error_message = "The top_k must be between 0 and 500."
-  }
-}
-
-variable "stop_sequences" {
-  description = "A list of stop sequences."
-  type        = list(string)
-  default     = []
-
-  validation {
-    condition     = length(var.stop_sequences) >= 0 && length(var.stop_sequences) <= 4
-    error_message = "The stop_sequences length must be between 0 and 4."
-  }
-}
-
-variable "max_length" {
-  description = "The maximum number of tokens to generate in the response."
-  type        = number
-  default     = 0
-
-  validation {
-    condition     = var.max_length >= 0 && var.max_length <= 4096
-    error_message = "The max_length must be between 0 and 4096."
-  }
 }
 
 # – Agent Alias – 
-
 variable "create_agent_alias" {
   description = "Whether or not to create an agent alias."
   type        = bool

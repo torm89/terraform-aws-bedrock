@@ -59,25 +59,8 @@ resource "awscc_bedrock_agent" "bedrock_agent" {
 
   customer_encryption_key_arn = var.kms_key_arn
   tags                        = var.tags
-  prompt_override_configuration = var.prompt_override == false ? null : {
-    prompt_configurations = [{
-      prompt_type = var.prompt_type
-      inference_configuration = {
-        temperature    = var.temperature
-        top_p          = var.top_p
-        top_k          = var.top_k
-        stop_sequences = var.stop_sequences
-        maximum_length = var.max_length
-      }
-      base_prompt_template = var.base_prompt_template
-      parser_mode          = var.parser_mode
-      prompt_creation_mode = var.prompt_creation_mode
-      prompt_state         = var.prompt_state
+  prompt_override_configuration = var.prompt_override_configuration
 
-    }]
-    override_lambda = var.override_lambda_arn
-
-  }
   # open issue: https://github.com/hashicorp/terraform-provider-awscc/issues/2004
   # auto_prepare needs to be set to true
   auto_prepare    = true
