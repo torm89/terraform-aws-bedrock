@@ -6,6 +6,8 @@ module "oss_knowledgebase" {
   version = "0.0.2"
   allow_public_access_network_policy = var.allow_opensearch_public_access
   create_vector_index = true
+  number_of_replicas = "0"
+  number_of_shards = "2"
   vector_index_mappings = <<-EOF
       {
       "properties": {
