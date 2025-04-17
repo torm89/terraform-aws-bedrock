@@ -1611,6 +1611,11 @@ variable "blueprint_tags" {
 }
 
 # - IAM -
+variable "create_agent_resource_role" {
+  type = bool
+  default = true
+}
+
 variable "permissions_boundary_arn" {
   description = "The ARN of the IAM permission boundary for the role."
   type        = string
