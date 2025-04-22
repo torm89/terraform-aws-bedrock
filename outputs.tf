@@ -83,3 +83,8 @@ output "custom_model" {
   value       = var.create_custom_model ? aws_bedrock_custom_model.custom_model[0] : null
   description = "The custom model. If no custom model was requested, value will be null."
 }
+
+output "application_inference_profile" {
+  value       = var.create_app_inference_profile ? awscc_bedrock_application_inference_profile.application_inference_profile[0] : null
+  description = "The application inference profile. If no application inference profile was requested, value will be null."
+}
